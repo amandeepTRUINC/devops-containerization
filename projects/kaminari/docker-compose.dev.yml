@@ -1,0 +1,21 @@
+version: "3.8"
+services:
+  app:
+    container_name: kaminari-dev
+    build:
+      context: .
+      args:
+        APP_ENV: development
+    env_file: .env.dev
+    ports:
+      - "3500:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    networks:
+      - shared-db-net
+
+networks:
+  shared-db-net:
+    external: true
+    

@@ -1,0 +1,26 @@
+version: "3.8"
+services:
+  app:
+    container_name: kaminari-prod
+    build:
+      context: .
+      args:
+        APP_ENV: production
+    env_file: .env.prod
+    ports:
+      - "3502:3000"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3502"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    volumes:
+      - .:/app
+      - /app/node_modules
+    networks:
+      - shared-db-net
+networks:
+  shared-db-net:
+    external: true

@@ -1,0 +1,28 @@
+services:
+  app:
+    container_name: kaminari-staging
+    build:
+      context: .
+      args:
+        APP_ENV: staging
+    env_file: .env.staging
+    ports:
+      - "3501:3000"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3501"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    environment:
+      - NEXT_LOG_LEVEL=verbose
+    volumes:
+      - .:/app
+      - /app/node_modules
+    networks:
+      - shared-db-net
+
+networks:
+  shared-db-net:
+    external: true
