@@ -20,7 +20,7 @@ RUN if [ "$NODE_ENV" = "production" ]; \
 COPY . .
 
 # Expose the port your app runs on (change if not 5000)
-EXPOSE 5000
+EXPOSE 8080
 
 # Default command (can be overridden in docker-compose or at runtime)
 CMD ["npm", "start"]

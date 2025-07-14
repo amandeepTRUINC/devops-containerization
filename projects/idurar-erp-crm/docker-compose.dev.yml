@@ -1,0 +1,33 @@
+services:
+  frontend:
+    container_name: idurar-erp-crm-frontend-dev
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "4000:80"
+    depends_on:
+      - backend
+    env_file:
+      - ./frontend/.env.development
+    networks:
+      - shared-db-net
+
+  backend:
+    container_name: idurar-erp-crm-backend-dev
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    env_file:
+      - ./backend/.env.development
+    networks:
+      - shared-db-net
+
+
+networks:
+  shared-db-net:
+    external: true

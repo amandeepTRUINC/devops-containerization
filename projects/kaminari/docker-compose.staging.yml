@@ -10,7 +10,7 @@ services:
       - "3501:3000"
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3501"]
+      test: ["CMD", "curl", "-f", "http://staging.kaminari.com:3000"]
       interval: 30s
       timeout: 10s
       retries: 3

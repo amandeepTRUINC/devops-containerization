@@ -45,6 +45,8 @@ COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/next.config.js ./next.config.js
 
+# Instaling CURL for health checks or other purposes
+RUN apk add --no-cache curl
 # Expose port
 EXPOSE 3000
 
