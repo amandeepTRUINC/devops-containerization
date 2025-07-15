@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+  nginx:
+    image: nginx:alpine
+    container_name: reverse-proxy
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - todo-list-static-dev:/app/todo-list/dev:ro
+      - todo-list-static-staging:/app/todo-list/staging:ro
+      - todo-list-static-prod:/app/todo-list/prod:ro
+
+    networks:
+      - shared-db-net
+
+volumes:
+  todo-list-static-dev:
+  todo-list-static-staging:
+  todo-list-static-prod:
+
+
+networks:
+  shared-db-net:
+    external: true

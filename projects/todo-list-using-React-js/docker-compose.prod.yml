@@ -1,0 +1,34 @@
+version: "3.8"
+
+services:
+  frontend:
+    container_name: todo-list-frontend-prod
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        APP_ENV: prod
+    env_file:
+      - ./frontend/.env.prod
+    volumes:
+      - proxy_todo-list-static-prod:/app/build
+    networks:
+      - shared-db-net
+
+  backend:
+    container_name: todo-list-backend-prod
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    env_file:
+      - ./backend/.env.prod
+    networks:
+      - shared-db-net
+
+volumes:
+  proxy_todo-list-static-prod:
+    external: true
+
+networks:
+  shared-db-net:
+    external: true

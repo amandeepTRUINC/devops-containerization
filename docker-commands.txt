@@ -1,0 +1,8 @@
+1. command to run the container with container-name
+docker-compose -f docker-compose.prod.yml -p kaminari_production up -d --build
+
+
+2. for restartng nginx-container at root level
+docker-compose restart nginx
+
+

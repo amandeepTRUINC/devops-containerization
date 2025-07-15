@@ -1,0 +1,36 @@
+version: "3.8"
+
+services:
+  frontend:
+    container_name: todo-list-frontend-dev
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        APP_ENV: development
+    env_file:
+      - ./frontend/.env.development
+    volumes:
+      - proxy_todo-list-static-dev:/app/build
+    networks:
+      - shared-db-net
+
+  backend:
+    container_name: todo-list-backend-dev
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./backend/.env.development
+    networks:
+      - shared-db-net
+
+volumes:
+  proxy_todo-list-static-dev:
+    external: true
+
+networks:
+  shared-db-net:
+    external: true

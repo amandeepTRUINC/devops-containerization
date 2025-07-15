@@ -1,0 +1,36 @@
+version: "3.8"
+
+services:
+  frontend:
+    container_name: todo-list-frontend-staging
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        APP_ENV: staging
+    env_file:
+      - ./frontend/.env.staging
+    volumes:
+      - proxy_todo-list-static-staging:/app/build
+    networks:
+      - shared-db-net
+
+  backend:
+    container_name: todo-list-backend-staging
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8001:8001"
+    env_file:
+      - ./backend/.env.staging
+    networks:
+      - shared-db-net
+
+volumes:
+  proxy_todo-list-static-staging:
+    external: true
+
+networks:
+  shared-db-net:
+    external: true

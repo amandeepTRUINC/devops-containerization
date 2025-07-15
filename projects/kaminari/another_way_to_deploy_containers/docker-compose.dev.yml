@@ -1,6 +1,0 @@
-#  Rest of the file codebase remains same just add below lines in services section
-
-services:
-  nginx:
-    volumes:
-      - ./nginx/dev.conf:/etc/nginx/conf.d/default.conf:ro
