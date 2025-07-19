@@ -11,6 +11,7 @@ services:
       - todo-list-static-dev:/app/todo-list/dev:ro
       - todo-list-static-staging:/app/todo-list/staging:ro
       - todo-list-static-prod:/app/todo-list/prod:ro
+      - employee-management-static-dev:/app/employee-management/dev:ro
 
     networks:
       - shared-db-net
@@ -19,6 +20,7 @@ volumes:
   todo-list-static-dev:
   todo-list-static-staging:
   todo-list-static-prod:
+  employee-management-static-dev:
 
 
 networks:

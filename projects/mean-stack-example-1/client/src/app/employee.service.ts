@@ -2,15 +2,19 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject, tap } from 'rxjs';
 import { Employee } from './employee';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmployeeService {
-  private url = 'http://localhost:5200';
+  private url = environment.API_URL
   private employees$: Subject<Employee[]> = new Subject();
-
-  constructor(private httpClient: HttpClient) { }
+  
+  constructor(private httpClient: HttpClient) {
+    console.log("Envrionment =>", environment)
+    console.log("API url =>", this.url)
+  }
 
   private refreshEmployees() {
     this.httpClient.get<Employee[]>(`${this.url}/employees`)

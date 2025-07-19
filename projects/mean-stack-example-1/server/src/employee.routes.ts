@@ -2,14 +2,17 @@ import * as express from "express";
 import * as mongodb from "mongodb";
 import { collections } from "./database";
 
-export const employeeRouter = express.Router();
+const employeeRouter = express.Router();
 employeeRouter.use(express.json());
 
 employeeRouter.get("/", async (_req, res) => {
+  console.log("Hello from get Route")
     try {
         const employees = await collections.employees.find({}).toArray();
+        console.log("employee List =>", employees)
         res.status(200).send(employees);
     } catch (error) {
+      console.log("eRror =<", error)
         res.status(500).send(error.message);
     }
 });
@@ -84,3 +87,5 @@ employeeRouter.delete("/:id", async (req, res) => {
         res.status(400).send(error.message);
     }
 });
+
+export default employeeRouter;
